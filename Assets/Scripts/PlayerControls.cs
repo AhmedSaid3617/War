@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
     GameObject player; 
-    Rigidbody playerRb; 
-    public GameObject projectilePrefab;
+    Rigidbody playerRb;
+    
     public Transform canon;
     public Transform barrelEnd;
-    public Transform mainCamera;
+    public GameObject projectilePrefab;
+    
     public float projectileSpeed = 20;
     public float forwardForce = 200;
     public float backwardForce = 100;
@@ -22,7 +21,8 @@ public class PlayerControls : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         barrelEnd = GameObject.Find("Barrel End").transform;
         canon = GameObject.Find("Canon").transform;
-        mainCamera = GameObject.Find("Main Camera").transform;
+        
+        
     }
 
     void Update()
@@ -46,24 +46,10 @@ public class PlayerControls : MonoBehaviour
         else if (Input.GetKey("a")){
             playerRb.AddTorque(Vector3.down * torque * Time.deltaTime, ForceMode.VelocityChange);
         }
-
-        if (Input.GetMouseButtonDown(1)){
-            Aim();
-        }
-        else if (Input.GetMouseButtonUp(1)){
-            UnAim();
-        }
-        
-        //Fire.
+        //Fire
         if (Input.GetKeyDown("left ctrl")){
             Fire();
         }
-    }
-
-
-    void Aim(){
-        mainCamera.localPosition= new Vector3(0,-0.84f,-3.91f);
-        mainCamera.localEulerAngles = new Vector3(271f, 182.51f,180);
     }
 
     void Fire(){
@@ -71,8 +57,6 @@ public class PlayerControls : MonoBehaviour
         projClone.AddRelativeForce(projectileSpeed * Vector3.up, ForceMode.Impulse);
     }
 
-    void UnAim(){
-        mainCamera.localPosition = new Vector3(-0.72f,-5.795f,-10.97f);
-        mainCamera.localEulerAngles = new Vector3(288.88f,2.5f,0);
-    }
+
+    
 }
