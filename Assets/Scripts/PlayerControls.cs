@@ -21,16 +21,12 @@ public class PlayerControls : MonoBehaviour
         playerRb = player.GetComponent<Rigidbody>();
         barrelEnd = GameObject.Find("Barrel End").transform;
         canon = GameObject.Find("Canon").transform;
-        
-        
     }
 
     void Update()
     {
-        //Gravity
-        if (transform.position.y > 1.533) {
-            playerRb.AddForce(gravity, ForceMode.Acceleration);
-        }
+        playerRb.AddForce(gravity);
+        
         //Forward.
         if (Input.GetKey("w")){
             playerRb.AddRelativeForce(Vector3.forward * forwardForce * Time.deltaTime, ForceMode.VelocityChange);
@@ -40,10 +36,10 @@ public class PlayerControls : MonoBehaviour
             playerRb.AddRelativeForce(Vector3.back * backwardForce * Time.deltaTime, ForceMode.VelocityChange);
         }
         //Rotate right.
-        if (Input.GetKey("d")){
+        if (Input.GetKey("d") && playerRb.velocity.magnitude > 0.1f){
             playerRb.AddTorque(Vector3.up * torque * Time.deltaTime, ForceMode.VelocityChange);
         }
-        else if (Input.GetKey("a")){
+        else if (Input.GetKey("a") && playerRb.velocity.magnitude > 0.1f){
             playerRb.AddTorque(Vector3.down * torque * Time.deltaTime, ForceMode.VelocityChange);
         }
         //Fire

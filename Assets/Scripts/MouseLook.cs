@@ -11,6 +11,7 @@ public class MouseLook : MonoBehaviour
     public float mouseSensitivityX = 100;
     public float mouseSensitivityY = 50;
     public GameObject barrelStart;
+    public GameObject crossHairs;
     
 
     void Start(){
@@ -25,6 +26,7 @@ public class MouseLook : MonoBehaviour
         mouseY = Input.GetAxis("Mouse Y") * mouseSensitivityY * Time.deltaTime;
 
         transform.Rotate(Vector3.up * mouseX);
+        
         yOutOfRange = barrelStart.transform.rotation.eulerAngles.x > 0;
         if (yOutOfRange){
 
@@ -41,12 +43,14 @@ public class MouseLook : MonoBehaviour
     }
 
     void Aim(){
-        mainCamera.localPosition = new Vector3(0,-0.94f,-3.19f);
-        mainCamera.localEulerAngles = new Vector3(276.174f,188.24f,171.73f);
+        mainCamera.localPosition = new Vector3(0.1f,0.117f,-1.86f);
+        mainCamera.localEulerAngles = new Vector3(274.847534f,179.405991f,180.513626f);
+        crossHairs.SetActive(true);
     }
 
     void UnAim(){
         mainCamera.localPosition = freeAimPos;
         mainCamera.localEulerAngles = freeAimAngle;
+        crossHairs.SetActive(false);
     }
 }
