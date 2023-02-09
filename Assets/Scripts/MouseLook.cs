@@ -27,7 +27,6 @@ public class MouseLook : MonoBehaviour
 
         transform.Rotate(Vector3.up * mouseX);
         barrelStart.transform.Rotate(Vector3.left * mouseY);
-        Debug.Log(barrelStart.transform.localEulerAngles.x);
 
         // Stop camera from looking too high.
         if (barrelStart.transform.localEulerAngles.x < 328 && barrelStart.transform.localEulerAngles.x > 180){
