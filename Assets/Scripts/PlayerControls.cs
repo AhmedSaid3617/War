@@ -25,7 +25,8 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        playerRb.AddForce(gravity);
+        //Gravity
+        playerRb.AddForce(gravity * Time.deltaTime);
         
         //Forward.
         if (Input.GetKey("w")){

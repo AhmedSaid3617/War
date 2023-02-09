@@ -4,7 +4,7 @@ public class MouseLook : MonoBehaviour
 {
     float mouseX;
     float mouseY;
-    bool yOutOfRange;
+    bool yInRange;
     Vector3 freeAimAngle;
     Vector3 freeAimPos;
     public Transform mainCamera; 
@@ -26,12 +26,18 @@ public class MouseLook : MonoBehaviour
         mouseY = Input.GetAxis("Mouse Y") * mouseSensitivityY * Time.deltaTime;
 
         transform.Rotate(Vector3.up * mouseX);
-        
-        yOutOfRange = barrelStart.transform.rotation.eulerAngles.x > 0;
-        if (yOutOfRange){
-
-        }
         barrelStart.transform.Rotate(Vector3.left * mouseY);
+        Debug.Log(barrelStart.transform.localEulerAngles.x);
+
+        // Stop camera from looking too high.
+        if (barrelStart.transform.localEulerAngles.x < 328 && barrelStart.transform.localEulerAngles.x > 180){
+            barrelStart.transform.localEulerAngles = new Vector3(-31.999f, 0, 0);
+        }
+
+        if (barrelStart.transform.localEulerAngles.x > 32 && 360 - barrelStart.transform.localEulerAngles.x > 180){
+            barrelStart.transform.localEulerAngles = new Vector3(31.999f, 0, 0);
+        }
+        
 
         if (Input.GetMouseButtonDown(1)){
             Aim();
