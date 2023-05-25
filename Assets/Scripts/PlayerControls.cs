@@ -8,25 +8,25 @@ public class PlayerControls : MonoBehaviour
     public Transform canon;
     public Transform barrelEnd;
     public GameObject projectilePrefab;
-
-    public float projectileSpeed = 20;
     public float forwardForce = 200;
     public float backwardForce = 100;
     public float torque = 30;
     public Vector3 gravity = new Vector3(0, -30f, 0);
+    public Transform mainCamera;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         playerRb = player.GetComponent<Rigidbody>();
-        barrelEnd = GameObject.Find("Barrel End").transform;
-        canon = GameObject.Find("Canon").transform;
+        barrelEnd = GameObject.Find("Player Barrel End").transform;
+        canon = GameObject.Find("Player Canon").transform;
+        mainCamera = GameObject.Find("Main Camera").transform;
     }
 
     void Update()
     {
         //Gravity
-        playerRb.AddForce(gravity * Time.deltaTime);
+        playerRb.AddForce(gravity * Time.deltaTime, ForceMode.Acceleration);
 
         //Forward.
         if (Input.GetKey("w"))
@@ -64,7 +64,7 @@ public class PlayerControls : MonoBehaviour
     void Fire()
     {
         Rigidbody projClone = Instantiate(projectilePrefab.GetComponent<Rigidbody>(), barrelEnd.position, canon.rotation);
-        projClone.AddRelativeForce(projectileSpeed * Vector3.up, ForceMode.Impulse);
+        //projClone.AddRelativeForce(projectileSpeed * Vector3.up, ForceMode.Impulse);
     }
 
 
